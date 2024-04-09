@@ -217,10 +217,10 @@ Status LatController::Init(std::shared_ptr<DependencyInjector> injector,
 
 
   matrix_a_coeff_ = Matrix::Zero(matrix_size, matrix_size);
-  matrix_a_coeff_(1, 1) = -(cf_ + cr_) / mass_ / v_;
-  matrix_a_coeff_(1, 3) = (lr_ * cr_ - lf_ * cf_) / mass_ / v_;
-  matrix_a_coeff_(3, 1) = (lr_ * cr_ - lf_ * cf_) / iz_ / v_;
-  matrix_a_coeff_(3, 3) = -(lf_ * lf_ * cf_ + lr_ * lr_ * cr_) / iz_ / v_;
+  matrix_a_coeff_(1, 1) = -(cf_ + cr_) / mass_ ;
+  matrix_a_coeff_(1, 3) = (lr_ * cr_ - lf_ * cf_) / mass_ ;
+  matrix_a_coeff_(3, 1) = (lr_ * cr_ - lf_ * cf_) / iz_ ;
+  matrix_a_coeff_(3, 3) = -(lf_ * lf_ * cf_ + lr_ * lr_ * cr_) / iz_ ;
 
 
   /*
@@ -743,7 +743,7 @@ void LatController::UpdateMatrixCompound() {
 
 double LatController::ComputeFeedForward(double ref_curvature) const {
   const double kv =
-      ((lr_*mass_)/2cf_(lf_+lr_)) - ((lf_*mass)/2cr_(lf_+lr_));
+      ((lr_*mass_)/2*cf_(lf_+lr_)) - ((lf_*mass)/2*cr_(lf_+lr_));
 
   // Calculate the feedforward term of the lateral controller; then change it
   // from rad to %
